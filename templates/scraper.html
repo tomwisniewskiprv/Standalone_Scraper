@@ -2,42 +2,96 @@
 
 {% block content %}
 
-    {% if test %}
-        {{ test }} {{ group }}
-    {% endif %}
+    <div class="row">
+        <form method="POST" id="form_scraper">
+            {% csrf_token %}
+            <div class="col-xs-12">
+                <h4>Sprawdź bieżący plan dla grupy:</h4>
+            </div>
+            <div class="col-xs-8">
 
-    <form method="POST" id="form_scraper">
-        {% csrf_token %}
-        Sprawdź plan w bieżącym tygodniu dla grupy
-        <label>
-            <select name="group">
-                <option value="A1">A 1&nbsp;</option>
-                <option value="A2">A 2&nbsp;</option>
-                <option value="B3">B 3&nbsp;</option>
-                <option value="B4">B 4&nbsp;</option>
-            </select>
-        </label>
-        <input type="submit" name="current_week" value="GO !"/>
-        <br><br> lub wybierz inny tydzień&nbsp;
-        {% if weeks %}
-            <label>
-                <select name="week">
-                    {% for value, week in weeks %}
-                        <option value="{{ value }}">{{ week }}</option>
+                <p>
+                    <label class="radio-inline">
+                        <input type="radio" name="group" value="A1" checked>A 1
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="group" value="A2">A 2
+                    </label>
+                </p>
+                <p>
+                    <label class="radio-inline">
+                        <input type="radio" name="group" value="B3">B 3
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="group" value="B4">B 4
+                    </label>
+                </p>
+
+            </div>
+            <div class="col-xs-4">
+                <button type="submit" form="form_scraper" value="current" class="btn btn-lg">GO !</button>
+            </div>
+            <div class="col-xs-12"><p>lub wybierz inny tydzień</p></div>
+            <div class="col-xs-8">
+                {% if weeks %}
+                    <label>
+                        <select name="week">
+                            {% for value, week in weeks %}
+                                <option value="{{ value }}">{{ week }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                {% endif %}
+            </div>
+            <div class="col-xs-4">
+                <button type="submit" form="form_scraper" value="current" class="btn btn-lg">GO !</button>
+            </div>
+        </form>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-xs-12">
+            {% if schedule %}
+
+                <h4>Plan na
+                    <mark>
+                        {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}{% endif %}{% endfor %}</mark>
+                    dla grupy
+                    <mark> {{ group }}</mark>
+                </h4>
+
+                <div class="schedule_results">
+                    {% for key, classes in schedule.items %}
+                        <p class="bg-success text-info" style="padding-left: 5px;"><strong>{{ key }}</strong></p>
+                        {% for class in classes %}
+                            <pre> {{ class }} </pre>
+                        {% endfor %}
                     {% endfor %}
-                </select>
-            </label>
-        {% endif %}
+                </div>
+            {% else %}
+                <div class="schedule_results">
+                    <pre>Nie ma zajęć</pre>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 
-        <button type="submit" form="form_scraper" value="current">GO !</button>
-    </form>
+    {% if lecturers %}
+        <div class="row">
+            <div class="col-xs-12"><p class="bg-success text-info" style="padding-left: 5px;"><strong>Prowadzący:</strong></p>
 
-    {% if schedule %}
-        {% for x in schedule %}
-            {{ x|linebreaks|safe }}
-        {% endfor %}
+            <table class="table">
+                {% for class, lecturer in lecturers.items %}
+                    <tr>
+                        <td>{{ class }}</td>
+                        <td>&nbsp;</td>
+                        <td>{{ lecturer }}</td>
+                    </tr>
+                {% endfor %}
+            </table></div>
+        </div>
     {% endif %}
-
-
 
 {% endblock content %}

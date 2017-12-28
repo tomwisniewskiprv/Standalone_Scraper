@@ -19,11 +19,15 @@ def scraper(request):
             if request.POST.get("week") != None and request.POST.get("week") != '0':
                 schedule_scraper = ScheduleScraper(request.POST.get("week"))
                 content["weeks"] = schedule_scraper.load_numbered_weeks()
-                schedule_scraper.scrap()
-                content["schedule"] = schedule_scraper.get_schedule_for_group(request.POST["group"])
-
-                content["test"] = request.POST["week"]
+                content["schedule"], content["lecturers"] = schedule_scraper.get_schedule_for_group(request.POST["group"])
                 content["group"] = request.POST["group"]
+
+                content["selected_week"] = request.POST["week"]
+
+                # debug
+                content["test"] = content.get("weeks")
+                content["test2"] = request.POST["week"]
+
             else:
                 schedule_scraper = ScheduleScraper()
                 content["weeks"] = schedule_scraper.load_numbered_weeks()

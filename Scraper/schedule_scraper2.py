@@ -57,8 +57,7 @@ class ScheduleScraper(object):
         self._url = self._create_URL(week)
 
         self._get_page_content()
-
-        self._current_week = ""
+        self._scrap()
 
         self._teachers = {'MCh': 'Marcin Cholewa',
                           'ASa': 'Arkadiusz Sacewicz',
@@ -80,9 +79,13 @@ class ScheduleScraper(object):
                           'BR': 'Romuald Błaszczyk',
                           'KSt': 'Kazimierz Stróż',
                           'CM': 'Miłosław Chodacki',
+                          'DR': 'Rafał Doroz',
                           }
 
+        self._lecturers = {}  # set()
+
     def _create_URL(self, week):
+        """ Forge URL for request with specific week number"""
         if week == "0":
             return URL + "1"
         else:
@@ -109,14 +112,15 @@ class ScheduleScraper(object):
             for week in option:
                 values_weeks.append((week.get('value'), week.get_text()))
 
+        # Weeks are dynamic so their values have to be scraped every time unfortunately
         self._numbered_weeks = values_weeks
 
     def load_numbered_weeks(self):
-        """Returns weeks and corresponding numbers as dictionary"""
+        """Returns weeks and corresponding numbers"""
         return self._numbered_weeks
 
-    # debug
     def _show_time_table(self):
+        # debug
         print(self._time_table)
 
     def _remove_redundancy(self, schedule_data):
@@ -172,7 +176,7 @@ class ScheduleScraper(object):
 
         return time_table
 
-    def scrap(self):
+    def _scrap(self):
         """
         Main scrapping procedure. All results will be in :
 
@@ -205,7 +209,11 @@ class ScheduleScraper(object):
             lecture_info.insert(1, lecture_name_and_type[1].strip())
 
             if len(lecture_info) < 4:
-                lecture_info.append("Brak sali")
+                lecture_info.append("--")
+
+            lecture_info[0] = lecture_info[0].replace("zz", "").upper()
+            if "e-" in lecture_info[1]:
+                lecture_info[1] = lecture_info[1].replace("wyk ", "").replace("lab ", "")
 
             # Extract data rectangle coordinates
             end_of_cords = div_tag.get("style").find("border")
@@ -225,7 +233,7 @@ class ScheduleScraper(object):
             # Assign lectures to correct lists based on coordinates:
             # group
             # lecture_info[0] # lecture name
-            # lecture_info[1] # type
+            # lecture_info[1] # class aberration
             # lecture_info[2] # teacher
             # lecture_info[3] # lecture room number
             # coordinates
@@ -324,57 +332,44 @@ class ScheduleScraper(object):
         results = sorted(results, key=lambda x: x[5]["top"])
         return results
 
+    def _format_result(self, day, schedule):
+        """ Creates formatted strings for display and associates aberrations with correct lecturers."""
+        result = []
+        for lecture in schedule:
+            teacher = self._teachers.get(lecture[3])
+            duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 12)
+            if duration is None:
+                duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 11)
+            formatted = "{:5} - {:5} {:^5} {:<7} {}  ".format(self._time_table[lecture[5]["top"]],  # start
+                                                                       duration,  # end
+                                                                       lecture[4],  # room number
+                                                                       lecture[1],  # class aberration
+                                                                       lecture[2],  # class type (lecture / exercises)
+                                                                       teacher)
+
+            self._lecturers[lecture[1]] = teacher
+
+            result.append(formatted)
+
+        return result
+
     def get_schedule_for_group(self, wanted_group):
         """ Sorts data to correct order and format
-            :returns sorted list # TODO for now
+            :returns sorted list
         """
-
-        schedule = []
 
         friday_schedule = self._order_results_by_group(self._friday_schedule, wanted_group)
         saturday_schedule = self._order_results_by_group(self._saturday_schedule, wanted_group)
         sunday_schedule = self._order_results_by_group(self._sunday_schedule, wanted_group)
 
-        # Friday
-        schedule.append("FRIDAY")
-        for lecture in friday_schedule:
-            teacher = self._teachers.get(lecture[3])
-            duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 12)
-            if duration is None:
-                duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 11)
-            formatted = "{:5} {:5} {:<5} {:<10} {:<15}".format(self._time_table[lecture[5]["top"]],
-                                                               duration,
-                                                               lecture[0], lecture[1], teacher)
+        # Friday, Saturday , Sunday
+        friday_schedule = self._format_result("Piątek", friday_schedule)
+        saturday_schedule = self._format_result("Sobota", saturday_schedule)
+        sunday_schedule = self._format_result("Niedziela", sunday_schedule)
 
-            schedule.append(formatted)
+        schedule = {"Piątek": friday_schedule, "Sobota": saturday_schedule, "Niedziela": sunday_schedule}
 
-        # Saturday
-        schedule.append("SATURDAY")
-        for lecture in saturday_schedule:
-            teacher = self._teachers.get(lecture[3])
-            duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 12)
-            if duration is None:
-                duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 11)
-            formatted = "{:5} {:5} {:<5} {:<10} {:<15}".format(self._time_table[lecture[5]["top"]],
-                                                               duration,
-                                                               lecture[0], lecture[1], teacher)
-
-            schedule.append(formatted)
-
-        # Sunday
-        schedule.append("SUNDAY")
-        for lecture in sunday_schedule:
-            teacher = self._teachers.get(lecture[3])
-            duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 12)
-            if duration is None:
-                duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 11)
-            formatted = "{:5} {:5} {:<5} {:<10} {:<15}".format(self._time_table[lecture[5]["top"]],
-                                                               duration,
-                                                               lecture[0], lecture[1], teacher)
-
-            schedule.append(formatted)
-
-        return schedule
+        return schedule, self._lecturers
 
     def show_schedule_for_group(self, group):
         # DEBUG
@@ -387,7 +382,7 @@ def main():
     scrapper = ScheduleScraper()
     s = scrapper.load_numbered_weeks()
     print(s)
-    scrapper.scrap()
+    scrapper._scrap()
     scrapper.show_schedule_for_group("A1")
 
 
