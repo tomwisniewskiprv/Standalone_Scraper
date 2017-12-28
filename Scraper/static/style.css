@@ -1,6 +1,9 @@
 html {
     background-color: red;
+    font-family: "Times New Roman", Georgia, Serif, monospace;
+/*
     font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    */
     font-size: 100%;
 }
 

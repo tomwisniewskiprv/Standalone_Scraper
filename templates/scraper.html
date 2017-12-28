@@ -3,8 +3,6 @@
 {% block content %}
 
 
-
-
     <div class="row">
         <form method="POST" id="form_scraper">
             {% csrf_token %}
@@ -12,8 +10,12 @@
                 <h4>Sprawdź bieżący plan dla grupy:</h4>
             </div>
             <div class="col-xs-8">
+                <button class="btn" name="MORDOR" value="MOOORDOOORS" form="form_scraper">
 
-                <p>
+                    Basic
+                </button>
+
+                {% comment %}                <p>
                     <label class="radio-inline">
                         <input type="radio" name="group" value="A1" checked>A 1
                     </label>
@@ -28,7 +30,12 @@
                     <label class="radio-inline">
                         <input type="radio" name="group" value="B4">B 4
                     </label>
-                </p>
+                </p>{% endcomment %}
+
+                <label> HENIEK
+                    <input type="button" value="QQQQ" name="HEN">
+                </label>
+
 
             </div>
             <div class="col-xs-4">
@@ -59,10 +66,10 @@
             {% if schedule %}
 
                 <h4>Plan na
-                    <mark>
-                        {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}{% endif %}{% endfor %}</mark>
+                    <code>
+                        {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}{% endif %}{% endfor %}</code>
                     dla grupy
-                    <mark> {{ group }}</mark>
+                    <code> {{ group }}</code>
                 </h4>
 
 
