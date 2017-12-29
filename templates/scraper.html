@@ -4,7 +4,8 @@
 
     <div class="row">
         <div class="col-xs-6">
-            <h1><strong>SKRAPER</strong></h1>
+            <h2><strong>SKRAPER</strong></h2>
+            <small>beta</small>
         </div>
         <div class="col-xs-3">
             <img src="{% static "scraper.png" %}" class="img-responsive">
@@ -13,6 +14,7 @@
             <img src="{% static "python-logo-200.png" %}" class="img-responsive">
         </div>
     </div>
+    <hr style="padding: 3px; margin: 0;">
     <div class="row">
         <form method="POST" id="form_scraper">
             {% csrf_token %}
@@ -122,10 +124,14 @@
 
     {% if lecturers %}
         <div class="row">
-            <div class="col-xs-12"><p class="bg-success text-info" style="padding-left: 5px;">
-                <strong>Prowadzący:</strong></p>
+            <div class="col-xs-12">
 
                 <table class="table">
+                    <tr class="success">
+                        <th>Prowadzący:</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                    </tr>
                     {% for class, lecturer in lecturers.items %}
                         <tr>
                             <td>{{ class }}</td>

@@ -24,6 +24,14 @@ strukurę HTML. Na szczęście BeautifulSoup działa cuda. :)
 21-12-2017
 Wersja 2.0 jest uaktualniona jako samodzielny projekt Django z wparciem urządzeń mobilnych.
 
+28-12-2017
+Dodano Bootstrap.
+
+Aplikacja w wersji stabilej wdrożona na http://planus.pythonanywhere.com/
+
+29-12-2017
+Applikacja wyświetla poprawne wyniki dla dni bez zajęć.
+
 
 [ENG]
 
@@ -35,3 +43,11 @@ Fortunately, BeautifulSoup works wonders. :)
 
 21-12-2017
 Version 2.0 is updated as a standalone Django project with the support of mobile devices.
+
+28-12-2017
+Added Bootstrap.
+
+The stable version application implemented on http://planus.pythonanywhere.com/
+
+29-12-2017
+Application displays the correct results for days without classes.
