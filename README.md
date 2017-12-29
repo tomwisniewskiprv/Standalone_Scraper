@@ -22,7 +22,7 @@ strukurę HTML. Na szczęście BeautifulSoup działa cuda. :)
 
 
 21-12-2017
-Wersja 2.0 jest uaktualniona jako samodzielny projekt Django z wparciem urządzeń mobilnych.
+Wersja 2.0 jest uaktualniona jako samodzielny projekt Django z wsparciem urządzeń mobilnych.
 
 28-12-2017
 Dodano Bootstrap.
@@ -30,7 +30,7 @@ Dodano Bootstrap.
 Aplikacja w wersji stabilnej wdrożona na http://planus.pythonanywhere.com/
 
 29-12-2017
-Applikacja wyświetla poprawne wyniki dla dni bez zajęć.
+Aplikacja wyświetla poprawne wyniki dla dni bez zajęć.
 
 
 [ENG]
