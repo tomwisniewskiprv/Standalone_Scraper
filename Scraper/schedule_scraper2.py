@@ -332,7 +332,7 @@ class ScheduleScraper(object):
         results = sorted(results, key=lambda x: x[5]["top"])
         return results
 
-    def _format_result(self, day, schedule):
+    def _format_result(self,schedule):
         """ Creates formatted strings for display and associates aberrations with correct lecturers."""
         result = []
         for lecture in schedule:
@@ -355,7 +355,7 @@ class ScheduleScraper(object):
 
     def get_schedule_for_group(self, wanted_group):
         """ Sorts data to correct order and format
-            :returns sorted list
+            :returns dictionary and lecturers(set)
         """
 
         friday_schedule = self._order_results_by_group(self._friday_schedule, wanted_group)
@@ -363,11 +363,11 @@ class ScheduleScraper(object):
         sunday_schedule = self._order_results_by_group(self._sunday_schedule, wanted_group)
 
         # Friday, Saturday , Sunday
-        friday_schedule = self._format_result("Piątek", friday_schedule)
-        saturday_schedule = self._format_result("Sobota", saturday_schedule)
-        sunday_schedule = self._format_result("Niedziela", sunday_schedule)
+        friday_schedule = self._format_result(friday_schedule)
+        saturday_schedule = self._format_result(saturday_schedule)
+        sunday_schedule = self._format_result(sunday_schedule)
 
-        schedule = {"Piątek": friday_schedule, "Sobota": saturday_schedule, "Niedziela": sunday_schedule}
+        schedule = {"Friday": friday_schedule, "Saturday": saturday_schedule, "Sunday": sunday_schedule}
 
         return schedule, self._lecturers
 

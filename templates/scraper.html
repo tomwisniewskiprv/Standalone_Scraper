@@ -1,8 +1,18 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
-
+    <div class="row">
+        <div class="col-xs-6">
+            <h1><strong>SKRAPER</strong></h1>
+        </div>
+        <div class="col-xs-3">
+            <img src="{% static "scraper.png" %}" class="img-responsive">
+        </div>
+        <div class="col-xs-3">
+            <img src="{% static "python-logo-200.png" %}" class="img-responsive">
+        </div>
+    </div>
     <div class="row">
         <form method="POST" id="form_scraper">
             {% csrf_token %}
@@ -33,7 +43,7 @@
             <div class="col-xs-4">
                 <button type="submit" form="form_scraper" value="current" class="btn btn-lg">GO !</button>
             </div>
-            <div class="col-xs-12"><p>lub wybierz inny tydzień</p></div>
+            <div class="col-xs-12"><h4>lub wybierz inny tydzień</h4></div>
             <div class="col-xs-8">
                 {% if weeks %}
                     <label>
@@ -60,37 +70,52 @@
                 <h4>Plan na
                     <code>
                         {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}{% endif %}{% endfor %}</code>
-                    dla grupy
-                    <code> {{ group }}</code>
+                    dla grupy <code> {{ group }}</code>
                 </h4>
 
-
-
                 {% for key, classes in schedule.items %}
-
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" href="#{{ key }}">{{ key }}</a>
-                                </h4>
-                            </div>
-                            <div id="{{ key }}" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    {% for class in classes %}
-                                        <pre> {{ class }} </pre>
-                                    {% endfor %}
+                    {% if classes|length > 0 %}
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#{{ key }}">
+                                            {% if key == "Friday" %}Piątek
+                                            {% elif key == "Saturday" %}Sobota
+                                            {% elif key == "Sunday" %}Niedziela
+                                            {% endif %}
+                                        </a>
+                                    </h4>
                                 </div>
-                                {% comment %}<div class="panel-footer">Panel Footer</div>{% endcomment %}
+                                <div id="{{ key }}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        {% for class in classes %}
+                                            <pre> {{ class }} </pre>
+                                        {% endfor %}
+                                    </div>
+                                    {% comment %}<div class="panel-footer">Panel Footer</div>{% endcomment %}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    {% else %}
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        {% if key == "Friday" %}Piątek
+                                        {% elif key == "Saturday" %}Sobota
+                                        {% elif key == "Sunday" %}Niedziela
+                                        {% endif %}
+                                        nie ma zajęć, yay!</h4></div>
+                            </div>
+                        </div>
 
-
+                    {% endif %}
                 {% endfor %}
+
             {% else %}
-                <pre>Nie ma zajęć</pre>
+                <pre>Nie ma zajęć w tym dniu.</pre>
             {% endif %}
         </div>
     </div>
