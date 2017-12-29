@@ -27,7 +27,7 @@ Wersja 2.0 jest uaktualniona jako samodzielny projekt Django z wparciem urządze
 28-12-2017
 Dodano Bootstrap.
 
-Aplikacja w wersji stabilej wdrożona na http://planus.pythonanywhere.com/
+Aplikacja w wersji stabilnej wdrożona na http://planus.pythonanywhere.com/
 
 29-12-2017
 Applikacja wyświetla poprawne wyniki dla dni bez zajęć.
