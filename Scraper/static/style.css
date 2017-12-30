@@ -1,10 +1,16 @@
 html {
-    background-color: red;
-    font-family: "Times New Roman", Georgia, Serif, monospace;
-/*
-    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-    */
+    background-color: white;
     font-size: 100%;
 }
 
+.orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
 
+.bungee {
+    font-family: 'Bungee', cursive;
+}
+
+.russo {
+    font-family: 'Russo One', sans-serif;
+}
