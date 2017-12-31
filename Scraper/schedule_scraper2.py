@@ -332,7 +332,7 @@ class ScheduleScraper(object):
         results = sorted(results, key=lambda x: x[5]["top"])
         return results
 
-    def _format_result(self,schedule):
+    def _format_result(self, schedule):
         """ Creates formatted strings for display and associates aberrations with correct lecturers."""
         result = []
         for lecture in schedule:
@@ -341,11 +341,11 @@ class ScheduleScraper(object):
             if duration is None:
                 duration = self._time_table.get(lecture[5]["height"] + lecture[5]["top"] + 11)
             formatted = "{:5} - {:5} {:^5} {:<7} {}  ".format(self._time_table[lecture[5]["top"]],  # start
-                                                                       duration,  # end
-                                                                       lecture[4],  # room number
-                                                                       lecture[1],  # class aberration
-                                                                       lecture[2],  # class type (lecture / exercises)
-                                                                       teacher)
+                                                              duration,  # end
+                                                              lecture[4],  # room number
+                                                              lecture[1],  # class aberration
+                                                              lecture[2],  # class type (lecture / exercises)
+                                                              teacher)
 
             self._lecturers[lecture[1]] = teacher
 
@@ -370,6 +370,16 @@ class ScheduleScraper(object):
         schedule = {"Friday": friday_schedule, "Saturday": saturday_schedule, "Sunday": sunday_schedule}
 
         return schedule, self._lecturers
+
+    def get_schedule_for_all_groups(self):
+
+        group_A1 = self.get_schedule_for_group("A1")
+        group_A2 = self.get_schedule_for_group("A2")
+        group_B3 = self.get_schedule_for_group("B3")
+        group_B4 = self.get_schedule_for_group("B4")
+
+        schedule = {"A1": group_A1, "A2": group_A2, "B3": group_B3, "B4": group_B4}
+        return schedule
 
     def show_schedule_for_group(self, group):
         # DEBUG
