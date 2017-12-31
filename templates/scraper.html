@@ -5,8 +5,6 @@
     {% comment %}
 # TODO
 - dodać ciastecza zapamiętujące która grupa
-- stworzyć menu zamykane dla wyboru grupy i tygodnia
-- zamkąć wyniki w tabach A1 - A2 - B3 - B4
 {% endcomment %}
 
     <div class="row">
@@ -14,7 +12,7 @@
             <h2 class="orbitron text-center"><strong>SKRAPER</strong></h2>
         </div>
         <div class="col-xs-2">
-            <h6 class="russo text-center">beta</h6>
+            <h6 class="inconsolata text-center">beta</h6>
         </div>
         <div class="col-xs-3">
             <img src="{% static "python-logo-200.png" %}" class="img-responsive text-center">
@@ -23,30 +21,40 @@
     <hr style="padding: 3px; margin: 0;">
 
 
+    {% comment %}MENU PANEL{% endcomment %}
+
     <div class="row">
-        <form method="POST" id="form_scraper">
-            {% csrf_token %}
-            <div class="col-xs-12">
+        <div class="col-xs-12">
+            <form method="POST" id="form_scraper">
+                {% csrf_token %}
+                <button type="button" data-toggle="collapse" data-target="#menu" class="btn btn-info orbitron btn-block">+ MENU +</button>
 
-                <label class="radio-inline"><input type="radio" name="group" value="A1" checked hidden></label>
+                <div id="menu" class="collapse">
 
-                <button type="submit" form="form_scraper" value="current" class="btn btn-lg btn-block">Sprawdź bieżący plan
-                </button>
-                <hr>
-            </div>
-            <div class="col-xs-12">
-                <button type="submit" form="form_scraper" value="current" class="btn btn-lg">Wybierz inny tydzień</button>
-                {% if weeks %}
-                    <label>
-                        <select name="week">
-                            {% for value, week in weeks %}
-                                <option value="{{ value }}">{{ week }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                {% endif %}
-            </div>
-        </form>
+                    <label class="radio-inline">
+                        <input type="radio" name="group" value="A1" checked hidden></label>
+
+                    <button type="submit" form="form_scraper" value="current" class="btn btn-lg btn-default btn-block">
+                        <span class="inconsolata">Sprawdź bieżący plan</span>
+                    </button>
+
+                    <br>
+                    <button type="submit" form="form_scraper" value="current" class="btn btn-lg btn-default">
+                        <span class="inconsolata">Wybierz tydzień</span>
+                    </button>
+                    {% if weeks %}
+                        <label>
+                            <select name="week">
+                                {% for value, week in weeks %}
+                                    <option value="{{ value }}">{{ week }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    {% endif %}
+                </div>
+
+            </form>
+        </div>
     </div>
 
 
@@ -57,7 +65,7 @@
 
     <br>
 
-    {% comment %}TAB MENU{% endcomment %}
+    {% comment %}TAB GROUPS{% endcomment %}
     <div class="row">
         <div class="col-xs-12">
 
@@ -91,7 +99,7 @@
                     {% for group, plan in gschedule.items %}
                         <div id="{{ group }}" class="tab-pane fade">
 
-                            <h4>Plan na <code> {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}
+                            <h4 class="inconsolata" style="text-align: center;">Plan na <code> {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}
                             {% endif %}{% endfor %}</code> dla grupy <code> {{ group }}</code></h4>
 
                             {% for day, classes in plan.0.items %}
@@ -102,10 +110,11 @@
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" href="#{{ day }}{{ group }}">
+                                                    <span class="inconsolata">
                                                         {% if day == "Friday" %}Piątek
                                                         {% elif day == "Saturday" %}Sobota
                                                         {% elif day == "Sunday" %}Niedziela
-                                                        {% endif %}
+                                                        {% endif %} </span>
                                                     </a>
                                                 </h4>
                                             </div>
@@ -115,7 +124,6 @@
                                                         <pre>{{ data }}</pre>
                                                     {% endfor %}
                                                 </div>
-                                                {% comment %}<div class="panel-footer">Panel Footer</div>{% endcomment %}
                                             </div>
                                         </div>
                                     </div>
@@ -141,10 +149,10 @@
                         </div>
                     {% endfor %}
 
-            </div>
+                </div>
 
             {% else %}
-                    <pre>Nie ma zajęć w tym dniu.</pre>
+                <pre>Nie ma zajęć w tym dniu.</pre>
             {% endif %}
 
         </div>

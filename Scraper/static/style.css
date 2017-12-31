@@ -7,10 +7,8 @@ html {
     font-family: 'Orbitron', sans-serif;
 }
 
-.bungee {
-    font-family: 'Bungee', cursive;
+.inconsolata { /*fajna*/
+
+    font-family: 'Inconsolata', monospace;
 }
 
-.russo {
-    font-family: 'Russo One', sans-serif;
-}
