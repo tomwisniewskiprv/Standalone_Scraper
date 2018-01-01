@@ -12,3 +12,9 @@ html {
     font-family: 'Inconsolata', monospace;
 }
 
+.table-borderless td,
+.table-borderless th {
+    border: 0 !important;
+}
+
+

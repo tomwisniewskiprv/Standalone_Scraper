@@ -5,6 +5,7 @@
     {% comment %}
 # TODO
 - dodać ciastecza zapamiętujące która grupa
+- w stopce panelu dodac prowadzących
 {% endcomment %}
 
     <div class="row">
@@ -27,30 +28,46 @@
         <div class="col-xs-12">
             <form method="POST" id="form_scraper">
                 {% csrf_token %}
-                <button type="button" data-toggle="collapse" data-target="#menu" class="btn btn-info orbitron btn-block">+ MENU +</button>
+                <button type="button" data-toggle="collapse" data-target="#menu"
+                        class="btn btn-success orbitron btn-block">+ MENU +
+                </button>
 
                 <div id="menu" class="collapse">
 
-                    <label class="radio-inline">
-                        <input type="radio" name="group" value="A1" checked hidden></label>
+                    <table class="table table-borderless table-condensed" style="padding: 0;margin: 0;">
+                        <tr>
+                            <td colspan="2">
+                                <label class="radio-inline">
+                                    <input type="radio" name="group" value="A1" checked hidden></label>
 
-                    <button type="submit" form="form_scraper" value="current" class="btn btn-lg btn-default btn-block">
-                        <span class="inconsolata">Sprawdź bieżący plan</span>
-                    </button>
+                                <button type="submit" form="form_scraper" value="current"
+                                        class="btn btn-lg btn-default btn-block">
+                                    <span class="inconsolata">Sprawdź bieżący plan</span>
+                                </button>
+                            </td>
+                        </tr>
 
-                    <br>
-                    <button type="submit" form="form_scraper" value="current" class="btn btn-lg btn-default">
-                        <span class="inconsolata">Wybierz tydzień</span>
-                    </button>
-                    {% if weeks %}
-                        <label>
-                            <select name="week">
-                                {% for value, week in weeks %}
-                                    <option value="{{ value }}">{{ week }}</option>
-                                {% endfor %}
-                            </select>
-                        </label>
-                    {% endif %}
+                        <tr>
+                            <td>
+                                <button type="submit" form="form_scraper" value="current"
+                                        class="btn btn-lg btn-default">
+                                    <span class="inconsolata">Wybierz tydzień</span>
+                                </button>
+                            </td>
+                            <td style="text-align: center;">
+                                {% if weeks %}
+                                    <label>
+                                        <select name="week">
+                                            {% for value, week in weeks %}
+                                                <option value="{{ value }}">{{ week }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </label>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
 
             </form>
@@ -99,8 +116,9 @@
                     {% for group, plan in gschedule.items %}
                         <div id="{{ group }}" class="tab-pane fade">
 
-                            <h4 class="inconsolata" style="text-align: center;">Plan na <code> {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}
-                            {% endif %}{% endfor %}</code> dla grupy <code> {{ group }}</code></h4>
+                            <h4 class="inconsolata" style="text-align: center;">Plan na <code>
+                                {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}
+                                {% endif %}{% endfor %}</code>&nbsp;dla grupy <code> {{ group }}</code></h4>
 
                             {% for day, classes in plan.0.items %}
                                 {% comment %}plan.0 is schedule, plan.1 are lecturers{% endcomment %}
