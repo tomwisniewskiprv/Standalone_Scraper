@@ -2,12 +2,6 @@
 {% load static %}
 {% block content %}
 
-    {% comment %}
-# TODO
-- dodać ciastecza zapamiętujące która grupa
-- w stopce panelu dodac prowadzących
-{% endcomment %}
-
     <div class="row">
         <div class="col-xs-7">
             <h2 class="orbitron text-center"><strong>SKRAPER</strong></h2>
@@ -21,8 +15,7 @@
     </div>
     <hr style="padding: 3px; margin: 0;">
 
-
-    {% comment %}MENU PANEL{% endcomment %}
+    {% comment %}MENU BUTTON{% endcomment %}
 
     <div class="row">
         <div class="col-xs-12">
@@ -67,56 +60,34 @@
                             </td>
                         </tr>
                     </table>
-
                 </div>
-
             </form>
         </div>
     </div>
-
-
-
-
-
-
-
     <br>
 
-    {% comment %}TAB GROUPS{% endcomment %}
+    {% comment %}PILLS WITH GROUPS{% endcomment %}
     <div class="row">
-        <div class="col-xs-12">
-
-            {% comment %} #DEBUG
-            <hr>
-            {{ gschedule.A1 }}
-            <hr>
-            {{ gschedule.A1.0 }}
-            <hr>
-            {{ gschedule.A1.0.Friday }}
-            <hr>
-
-            {% for grp in gschedule.A1 %}
-                {{ grp.Friday }}<br>
-                {{ grp.Saturday }}<br>
-                {{ grp.Sunday }}<br>
-            {% endfor %}{% endcomment %}
+        <div class="col-xs-12 col-lg-12 ">
 
             {% if gschedule %}
 
-                <ul class="nav nav-tabs">
-                    <li><a href="#" class="orbitron"> <<</a></li>
+                <ul class="nav nav-pills center-pills">
                     {% for group, plan in gschedule.items %}
-                        {% comment %}<li class="active"><a data-toggle="tab" href="{{ group }}">{{ group }} %}</a></li>{% endcomment %}
-                        <li><a data-toggle="tab" href="#{{ group }}" class="orbitron">{{ group }}</a></li>
+                        <li><a data-toggle="pill" href="#{{ group }}" class="orbitron">{{ group }}</a></li>&nbsp;&nbsp;&nbsp;
                     {% endfor %}
-                    <li><a href="#" class="orbitron"> >></a></li>
                 </ul>
 
-                <div class="tab-content">
+                <div class="tab-content" style="padding-top: 10px;">
+
+                    <div id="loaded" class="tab-pane fade in active inconsolata">
+                        <h4 class="inconsolata" style="text-align: center;">
+                            Plan zaczytany, wybierz grupę.</h4></div>
+
                     {% for group, plan in gschedule.items %}
                         <div id="{{ group }}" class="tab-pane fade">
 
-                            <h4 class="inconsolata" style="text-align: center;">Plan na <code>
+                            <h4 class="inconsolata" style="text-align: center; padding-bottom: 5px;">Plan na <code>
                                 {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}
                                 {% endif %}{% endfor %}</code>&nbsp;dla grupy <code> {{ group }}</code></h4>
 
@@ -160,104 +131,17 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 {% endif %}
                             {% endfor %}
 
                         </div>
                     {% endfor %}
-
                 </div>
-
             {% else %}
                 <pre>Nie ma zajęć w tym dniu.</pre>
             {% endif %}
-
         </div>
     </div>
     {% comment %}TAB MENU{% endcomment %}
-
-    {% comment %} WYNIKI {% endcomment %}
-    {% comment %}
-    <div class="row">
-        <div class="col-xs-12">
-            {% if schedule %}
-
-                <h4>Plan na
-                    <code>
-                        {% for w in weeks %}{% if w.0 == selected_week %}{{ w.1 }}{% endif %}{% endfor %}</code>
-                    dla grupy <code> {{ group }}</code>
-                </h4>
-
-                {% for key, classes in schedule.items %}
-                    {% if classes|length > 0 %}
-                        <div class="panel-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" href="#{{ key }}">
-                                            {% if key == "Friday" %}Piątek
-                                            {% elif key == "Saturday" %}Sobota
-                                            {% elif key == "Sunday" %}Niedziela
-                                            {% endif %}
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="{{ key }}" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        {% for class in classes %}
-                                            <pre> {{ class }} </pre>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="panel-footer">Panel Footer</div>
-                                </div>
-                            </div>
-                        </div>
-
-                    {% else %}
-                        <div class="panel-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        {% if key == "Friday" %}Piątek
-                                        {% elif key == "Saturday" %}Sobota
-                                        {% elif key == "Sunday" %}Niedziela
-                                        {% endif %}
-                                        nie ma zajęć, yay!</h4></div>
-                            </div>
-                        </div>
-
-                    {% endif %}
-                {% endfor %}
-
-            {% else %}
-                <pre>Nie ma zajęć w tym dniu.</pre>
-            {% endif %}
-        </div>
-    </div>
-   {% endcomment %} {% comment %} WYNIKI {% endcomment %}
-
-
-    {% comment %}    {% if lecturers %}
-        <div class="row">
-            <div class="col-xs-12">
-
-                <table class="table">
-                    <tr class="success">
-                        <th>Prowadzący:</th>
-                        <th>&nbsp;</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                    {% for class, lecturer in lecturers.items %}
-                        <tr>
-                            <td>{{ class }}</td>
-                            <td>&nbsp;</td>
-                            <td>{{ lecturer }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-    {% endif %}{% endcomment %}
 
 {% endblock content %}

@@ -17,4 +17,7 @@ html {
     border: 0 !important;
 }
 
-
+.center-pills {
+    display: flex;
+    justify-content: center;
+}
