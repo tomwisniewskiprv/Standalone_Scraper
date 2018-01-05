@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="col-xs-12 alert alert-info inconsolata">
+        <div><h4>Polityka cookies</h4>
+            <hr>
+        </div>
+        <p>
+            Kiedy wchodzisz na stronę naszej witryny, na dysku Twojego komputera mogą być zapisywane tzw. ciasteczka
+            (ang. cookies), czyli niewielkie pliki tekstowe wysyłane przez serwer.</p>
+        <p>
+            Z serwera nigdy nie wysyłamy ciasteczek. Służą one tylko i wyłącznie do zapamiętania preferowanej grupy
+            ustawionej przez użytkownika.
+        <p>
+            Zapisywane na Twoim komputerze informacje nigdzie nie są gromadzone i w żaden sposób nie są przetwarzane ani
+            udostąpniane. </p>
+        <p>
+            W każdym momencie możesz wyłączyć możliwość zapisywania wszystkich lub niektórych ciasteczek poprzez zmianę
+            ustawień w swojej przeglądarce internetowej.</p>
+        <p>
+            Jeżeli zdecydujesz się na odrzucenie wszystkich ciasteczek, nie będzie możliwe korzystanie z zapisu
+            preferowanej
+            grupy. Wyłączenie ciasteczek nie powoduje braku możliwości przeglądania strony. </p>
+    </div>
+
+    <div class="col-xs-12 alert alert-success inconsolata">
+        <form method="POST" id="form_cookie">
+            <div><h4>Wybierz grupę domyślną :</h4></div>
+            {% csrf_token %}
+            <div style="padding: 10px; text-align: center;">
+                <label class="radio-inline">
+                    <input type="radio" name="_group" value="A1" checked> A 1<br>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="_group" value="A2"> A 2<br>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="_group" value="B3"> B 3<br>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="_group" value="B4"> B 4<br>
+                </label>
+                <label style="text-align: center; padding-top: 30px;">
+                    <input type="submit" value="Zapisz ustawienia grupy">
+                </label>
+
+            </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+/**
+ * Created by Tomasz Wiśniewski on 05.01.2018.
+ *
+ */
+
+function main() {
+}
+
+function hide_cookie() {
+    $('#cookie_info').hide();
+    set_cookie();
+
+}
+
+function set_cookie() {
+    document.cookie = "cookie_info=accepted;";
+}
+
+
+$(document).ready(main);

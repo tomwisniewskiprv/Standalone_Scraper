@@ -6,6 +6,9 @@ def scraper(request):
     template = "scraper.html"
     content = {}
 
+    if request.COOKIES.get("cookie_info"):
+        content["cookie_info"] = request.COOKIES["cookie_info"]
+
     if request.method == "GET":
         try:
             schedule_scraper = ScheduleScraper()
@@ -19,15 +22,14 @@ def scraper(request):
             if request.POST.get("week") != None and request.POST.get("week") != '0':
                 schedule_scraper = ScheduleScraper(request.POST.get("week"))
                 content["weeks"] = schedule_scraper.load_numbered_weeks()
-                content["group"] = request.POST["group"]
+
+                if not request.COOKIES.get("_group"):
+                    content["saved_group"] = request.POST["group"]
+                else:
+                    content["saved_group"] = request.COOKIES.get("_group")
 
                 content["gschedule"] = schedule_scraper.get_schedule_for_all_groups()
                 content["selected_week"] = request.POST["week"]
-
-                # debug
-                # content["test"] = content.get("weeks")
-                # content["test2"] = request.POST["week"]
-
 
             else:
                 schedule_scraper = ScheduleScraper()
@@ -44,3 +46,24 @@ def about(request):
     template = "about.html"
     response = render(request, template)
     return response
+
+
+def options(request):
+    template = "options.html"
+    content = {}
+
+    if request.COOKIES.get("cookie_info"):
+        content["cookie_info"] = request.COOKIES["cookie_info"]
+
+    if request.method == "POST":
+        if request.POST.get("_group"):
+            msg = request.POST["_group"]
+            content["msg"] = msg
+
+            response = render(request, template, content)
+            response.set_cookie('_group', msg, 3600 * 24 * 365)
+
+            return response
+    else:
+        response = render(request, template, content)
+        return response

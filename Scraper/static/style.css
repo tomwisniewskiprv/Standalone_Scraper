@@ -8,7 +8,6 @@ html {
 }
 
 .inconsolata { /*fajna*/
-
     font-family: 'Inconsolata', monospace;
 }
 
@@ -21,3 +20,9 @@ html {
     display: flex;
     justify-content: center;
 }
+
+/*Overwrites Bootstrap*/
+.container-fluid {
+    max-width: 400px;
+}
+
