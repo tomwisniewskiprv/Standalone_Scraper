@@ -25,7 +25,8 @@
 
     <div class="col-xs-12 alert alert-success inconsolata">
         <form method="POST" id="form_cookie">
-            <div><h4>Wybierz grupę domyślną :</h4></div>
+            <div><h4>Wybierz grupę domyślną :</h4><hr></div>
+
             {% csrf_token %}
             <div style="padding: 10px; text-align: center;">
                 <label class="radio-inline">
@@ -41,9 +42,8 @@
                     <input type="radio" name="_group" value="B4"> B 4<br>
                 </label>
                 <label style="text-align: center; padding-top: 30px;">
-                    <input type="submit" value="Zapisz ustawienia grupy">
+                    <input type="submit" class="btn btn-warning" value="Zapisz ustawienia grupy">
                 </label>
-
             </div>
         </form>
     </div>

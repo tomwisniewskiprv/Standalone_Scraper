@@ -15,6 +15,7 @@
           rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static "style.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "cookie_panel.css" %}" type="text/css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -22,64 +23,79 @@
 </head>
 <body>
 
-<div class="container-fluid" style="padding-top: 5px;">
-    <div class="row">
-        <div class="col-xs-7">
-            <h2 class="orbitron text-center"><strong>SKRAPER</strong></h2>
+
+<!-- TOP NAVIGATION MENU -->
+<nav class="navbar navbar-default orbitron">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="{% static "python-logo-200.png" %}" class="navbar-brand">
+            <a href="{% url 'scraper' %}" class="navbar-brand">SKRAPER</a>
         </div>
-        <div class="col-xs-2">
-            <h6 class="inconsolata text-center">beta</h6>
-        </div>
-        <div class="col-xs-3">
-            <img src="{% static "python-logo-200.png" %}" class="img-responsive text-center">
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'options' %}">OPCJE</a></li>
+                <li><a href="{% url 'about' %}">O STRONIE</a></li>
+            </ul>
         </div>
     </div>
-    <hr style="padding: 3px; margin: 0;">
-</div>
+</nav>
 
-<div class="container-fluid" style="padding-top: 5px;">
+<!-- MAIN CONTENT -->
+<div class="container-fluid">
 
     {% block content %}
     {% endblock %}
 
 </div>
 
-<footer class="container-fluid" style="padding-top: 10px;">
-    <table class="table inconsolata">
-        <tr class="success">
-            <th class="orbitron">Kontakt info:</th>
-            <th></th>
-        </tr>
-        <tr>
-            <td>Bug-report:</td>
-            <td><a href="mailto:planUS@openmailbox.org">planUS@openmailbox.org</a></td>
-        </tr>
-        <tr>
-            <td>Strona uczelni:</td>
-            <td><a href="http://plan.ii.us.edu.pl/">oryginalny plan</a></td>
-        </tr>
-    </table>
+<!-- KONTAK INFO -->
+<footer class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12" id="footer_info">
+            <table class="table table-borderless inconsolata">
+                <tr class="success">
+                    <th class="orbitron" colspan="2">Kontakt info:</th>
+                </tr>
+                <tr>
+                    <td>Bug-report:</td>
+                    <td><a href="mailto:planUS@openmailbox.org">planUS@openmailbox.org</a></td>
+                </tr>
+                <tr>
+                    <td>Strona uczelni:</td>
+                    <td><a href="http://plan.ii.us.edu.pl/">oryginalny plan</a></td>
+                </tr>
+
+                <tr>
+                    <td>Repozytorium:</td>
+                    <td><a href="https://github.com/tomwisniewskiprv/Standalone_Scraper">Github</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </footer>
 
+
+<!-- COOKIE INFO POP UP -->
 {% if not cookie_info %}
-    <div class="container-fluid bg-warning" id="cookie_info">
-        <div class="row">
-            <div class="col-xs-9 inconsolata">
-                <h4>Informacje o plikach cookie</h4>
-                <p class="text-primary">Ta strona używa plików Cookies. Dowiedz się więcej o celu ich używania i
-                    możliwości zmiany ustawień
-                    Cookies w przeglądarce.<a href="options.html"> Czytaj więcej...</a></p>
-            </div>
-            <div class="col-xs-3">
-                <button type="button" class="btn btn-info" id="hide_cookie" value="close_cookie_info"
-                        onclick="hide_cookie();">Zamknij
-                </button>
-            </div>
+    <div id="panel_cookie" class="panel_cookie">
+        <div class="text"><h4>Informacje o plikach cookie</h4>
+            <p>Ta strona używa plików Cookies. Dowiedz się więcej o celu ich używania i możliwości zmiany ustawień
+                Cookies w
+                przeglądarce. <a href="options.html">Czytaj więcej...</a></p>
         </div>
+        <input type="button" value="Zamknij" onclick="hide_cookie();"/>
     </div>
 {% endif %}
 
+<!-- SCRIPTS -->
 <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
 <script src='{% static 'main.js' %}'></script>
+
+
 </body>
 </html>

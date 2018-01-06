@@ -32,6 +32,9 @@ Aplikacja w wersji stabilnej wdrożona na http://planus.pythonanywhere.com/
 29-12-2017
 Aplikacja wyświetla poprawne wyniki dla dni bez zajęć.
 
+06-01-2018
+Aplikacja rozszerzona o GUI oraz możliwość zapisania preferowanej grupy (w cookies). Dodano także stronę informacyjną.
+
 
 [ENG]
 
@@ -51,3 +54,6 @@ The stable version application implemented on http://planus.pythonanywhere.com/
 
 29-12-2017
 Application displays the correct results for days without classes.
+
+06-01-2018
+Extended application with GUI and the ability to save your preferred group (in cookies). An information page has also been added.

@@ -44,7 +44,12 @@ def scraper(request):
 
 def about(request):
     template = "about.html"
-    response = render(request, template)
+    content = {}
+
+    if request.COOKIES.get("cookie_info"):
+        content["cookie_info"] = request.COOKIES["cookie_info"]
+
+    response = render(request, template, content)
     return response
 
 

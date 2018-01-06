@@ -7,7 +7,7 @@ function main() {
 }
 
 function hide_cookie() {
-    $('#cookie_info').hide();
+    $('#panel_cookie').hide();
     set_cookie();
 
 }

@@ -1,0 +1,98 @@
+
+.panel_cookie p,
+.panel_cookie h4 {
+    font-family: 'Inconsolata', monospace;
+    text-align: left;
+}
+
+.panel_cookie {
+    width: 100%;
+    position: fixed;
+    border-radius: 4px;
+    right: 0;
+    min-height: 53px !important;
+    line-height: 50px;
+    z-index: 100002;
+    background: #28292a;
+    background: rgba(0, 0, 0, 0.9);
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, .8);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .8);
+    padding: 0;
+}
+
+/*#panel_cookie_dol {
+    top: 1%;
+}*/
+
+#panel_cookie {
+    top: 0;
+}
+
+div.text {
+    float: left;
+    margin: 0 0 0 10%;
+    max-width: 75%;
+    width: 75%;
+}
+
+.panel_cookie input,
+body .panel_cookie input {
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    height: 53px !important;
+    width: 53px !important;
+    line-height: 53px;
+    background: url("close-st1.png") no-repeat 50%;
+    display: block;
+    float: right;
+    padding: 0;
+    margin: 8px 10px 0 0;
+    cursor: pointer;
+    text-indent: -999em;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+.panel_cookie input[type="button"]:hover,
+.panel_cookie input:hover,
+.panel_cookie input:active,
+.panel_cookie input:focus {
+    background: url("close-st1.png") no-repeat 50% #3A902D;
+    -webkit-border-radius: 0;
+    border-radius: 50px;
+}
+
+.panel_cookie h4,
+.panel_cookie p {
+    color: #fff;
+    text-shadow: -1px 0 0 rgba(0, 0, 0, .3);
+}
+
+.panel_cookie h4 {
+    font-weight: 100;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 0;
+    display: none
+}
+
+.panel_cookie p {
+    font-size: 14px;
+    line-height: 23px;
+    margin: 12px 0;
+    text-align: center
+}
+
+.panel_cookie p a {
+    color: #3A902D;
+    text-decoration: underline;
+    background: none;
+}
+
+.panel_cookie a:hover,
+.panel_cookie a:active,
+.panel_cookie a:focus {
+    text-decoration: none;
+    background: none;
+}
