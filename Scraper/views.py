@@ -13,6 +13,13 @@ def scraper(request):
         try:
             schedule_scraper = ScheduleScraper()
             content["weeks"] = schedule_scraper.load_numbered_weeks()
+            content["gschedule"] = schedule_scraper.get_schedule_for_all_groups()
+            content["selected_week"] = schedule_scraper.get_current_week()
+
+            if not request.COOKIES.get("_group"):
+                content["saved_group"] = request.POST["group"]
+            else:
+                content["saved_group"] = request.COOKIES.get("_group")
 
         except Exception as error:
             content["result"] = "Error {}".format(error)

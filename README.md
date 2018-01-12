@@ -35,6 +35,8 @@ Aplikacja wyświetla poprawne wyniki dla dni bez zajęć.
 06-01-2018
 Aplikacja rozszerzona o GUI oraz możliwość zapisania preferowanej grupy (w cookies). Dodano także stronę informacyjną.
 
+12-01-2018
+Program domyślnie sprawdza plan w bieżącym tygodniu i wyświetla wyniki zaraz po wczytaniu.
 
 [ENG]
 
