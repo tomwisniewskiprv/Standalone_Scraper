@@ -4,8 +4,6 @@
 
 
     {% comment %}MENU BUTTON{% endcomment %}
-    <p>{{ c }}</p>
-
     <div class="row">
         <div class="col-xs-12">
             <form method="POST" id="form_scraper">
@@ -19,13 +17,11 @@
                     <table class="table table-borderless table-condensed" style="padding: 0;margin: 0;">
                         <tr>
                             <td colspan="2">
-                                <label class="radio-inline">
-                                    <input type="radio" name="group" value="A1" checked hidden></label>
+                                <label> <input type="radio" name="group" value="A1" checked hidden></label>
 
-                                <button type="submit" form="form_scraper" value="current"
-                                        class="btn btn-lg btn-default btn-block">
-                                    <span class="inconsolata">Sprawdź bieżący plan</span>
-                                </button>
+                                <input type="submit" value="Sprawdź bieżący plan" name="is_current_week"
+                                       class="btn btn-lg btn-default btn-block">
+
                             </td>
                         </tr>
 
@@ -64,8 +60,10 @@
             <ul class="nav nav-pills center-pills">
                 {% for group, plan in gschedule.items %}
 
-                    {% if group == saved_group %}<li class="active">{% else %}<li>{% endif %}
-                    <a data-toggle="pill" href="#{{ group }}" class="orbitron">{{ group }}</a></li>&nbsp;&nbsp;
+                    {% if group == saved_group %}
+                        <li class="active">{% else %}
+                        <li>{% endif %}
+                <a data-toggle="pill" href="#{{ group }}" class="orbitron">{{ group }}</a></li>&nbsp;&nbsp;
                     &nbsp;
                 {% endfor %}
             </ul>

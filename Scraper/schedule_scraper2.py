@@ -51,6 +51,7 @@ GROUP_B4_sunday = GROUP_B3_sunday + COLUMN_GROUP_WIDTH
 class ScheduleScraper(object):
     def __init__(self, week="0"):
         self._time_table = self._create_time_table()
+        self._current_week = ""
         self._friday_schedule = []
         self._saturday_schedule = []
         self._sunday_schedule = []
@@ -59,6 +60,7 @@ class ScheduleScraper(object):
         self._get_page_content()
         self._scrap()
 
+        # up to III semester
         self._teachers = {'MCh': 'Marcin Cholewa',
                           'ASa': 'Arkadiusz Sacewicz',
                           'PP': 'Piotr Paszek',
@@ -87,7 +89,8 @@ class ScheduleScraper(object):
     def _create_URL(self, week):
         """ Forge URL for request with specific week number"""
         if week == "0":
-            return URL + "1"
+            # return URL + "1"
+            return URL[:len(URL) - 3]
         else:
             return URL + week
 
@@ -106,14 +109,21 @@ class ScheduleScraper(object):
         select_tag = soup.find_all('select', id='wBWeek')
 
         values_weeks = []
+        current_week = ""
+
         for options in select_tag:
             option = options.find_all('option')
+
+            selected_option = options.find(selected=True)  # there is only one
+            current_week = selected_option.get('value')  # get week range
+            #current_week = selected_option.get_text()  # get week range
 
             for week in option:
                 values_weeks.append((week.get('value'), week.get_text()))
 
         # Weeks are dynamic so their values have to be scraped every time unfortunately
         self._numbered_weeks = values_weeks
+        self._current_week = current_week
 
     def load_numbered_weeks(self):
         """Returns weeks and corresponding numbers"""
@@ -380,6 +390,9 @@ class ScheduleScraper(object):
 
         schedule = {"A1": group_A1, "A2": group_A2, "B3": group_B3, "B4": group_B4}
         return schedule
+
+    def get_current_week(self):
+        return self._current_week
 
     def show_schedule_for_group(self, group):
         # DEBUG

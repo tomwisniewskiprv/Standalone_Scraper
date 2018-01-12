@@ -31,6 +31,21 @@ def scraper(request):
                 content["gschedule"] = schedule_scraper.get_schedule_for_all_groups()
                 content["selected_week"] = request.POST["week"]
 
+            elif request.POST.get("is_current_week"):
+                content["c"] = request.POST.get("is_current_week")
+                content["w"] = request.POST.get("week")
+
+                schedule_scraper = ScheduleScraper()
+                content["weeks"] = schedule_scraper.load_numbered_weeks()
+
+                if not request.COOKIES.get("_group"):
+                    content["saved_group"] = request.POST["group"]
+                else:
+                    content["saved_group"] = request.COOKIES.get("_group")
+
+                content["gschedule"] = schedule_scraper.get_schedule_for_all_groups()
+                content["selected_week"] = schedule_scraper.get_current_week()
+
             else:
                 schedule_scraper = ScheduleScraper()
                 content["weeks"] = schedule_scraper.load_numbered_weeks()
