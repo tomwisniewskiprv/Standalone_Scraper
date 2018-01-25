@@ -13,7 +13,11 @@ function hide_cookie() {
 }
 
 function set_cookie() {
-    document.cookie = "cookie_info=accepted;";
+    var exp_date = new Date();
+    exp_date.setTime(exp_date.getTime() + (31 * 24 * 60 * 60 * 1000));
+
+    var expires = "expires="+ exp_date.toUTCString();
+    document.cookie = "cookie_info=accepted;" + expires + ";";
 }
 
 
