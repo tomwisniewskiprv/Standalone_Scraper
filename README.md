@@ -21,22 +21,30 @@ zajęć. Nie ukrywam, że dla innych stron było by to znacznie prostsze ze wzgl
 strukurę HTML. Na szczęście BeautifulSoup działa cuda. :)
 
 
-21-12-2017
-Wersja 2.0 jest uaktualniona jako samodzielny projekt Django z wsparciem urządzeń mobilnych.
+23-02-2018
+Zmiany w systemie grup na uczelni powodują błędne działanie programu. Zmiany w toku.
 
-28-12-2017
-Dodano Bootstrap.
+Nie istnieje jeszcze lista przedmiotów oraz wykładowców co powoduje nie wyświetlnie się planu. Zmiany w toku.
 
-Aplikacja w wersji stabilnej wdrożona na http://planus.pythonanywhere.com/
 
-29-12-2017
-Aplikacja wyświetla poprawne wyniki dla dni bez zajęć.
+12-01-2018
+Program domyślnie sprawdza plan w bieżącym tygodniu i wyświetla wyniki zaraz po wczytaniu.
 
 06-01-2018
 Aplikacja rozszerzona o GUI oraz możliwość zapisania preferowanej grupy (w cookies). Dodano także stronę informacyjną.
 
-12-01-2018
-Program domyślnie sprawdza plan w bieżącym tygodniu i wyświetla wyniki zaraz po wczytaniu.
+21-12-2017
+Wersja 2.0 jest uaktualniona jako samodzielny projekt Django z wsparciem urządzeń mobilnych.
+
+29-12-2017
+Aplikacja wyświetla poprawne wyniki dla dni bez zajęć.
+
+28-12-2017
+Dodano Bootstrap.
+Aplikacja w wersji stabilnej wdrożona na http://planus.pythonanywhere.com/
+
+
+
 
 [ENG]
 
@@ -46,16 +54,19 @@ I do not hide that for other websites it would be much simpler due to the less c
 Fortunately, BeautifulSoup works wonders. :)
 
 
-21-12-2017
-Version 2.0 is updated as a standalone Django project with the support of mobile devices.
-
-28-12-2017
-Added Bootstrap.
-
-The stable version application implemented on http://planus.pythonanywhere.com/
+06-01-2018
+Extended application with GUI and the ability to save your preferred group (in cookies). An information page has also been added.
 
 29-12-2017
 Application displays the correct results for days without classes.
 
-06-01-2018
-Extended application with GUI and the ability to save your preferred group (in cookies). An information page has also been added.
+28-12-2017
+Added Bootstrap.
+The stable version application implemented on http://planus.pythonanywhere.com/
+
+
+21-12-2017
+Version 2.0 is updated as a standalone Django project with the support of mobile devices.
+
+
+

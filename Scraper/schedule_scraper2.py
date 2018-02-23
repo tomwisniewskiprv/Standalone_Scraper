@@ -22,6 +22,8 @@ HEIGHT_TIME_2h = 90  # 2h
 HEIGHT_TIME_2_5ha = 124  # 2,5h
 HEIGHT_TIME_2_5hb = 123  # 2,5h
 
+
+# ~: WIDTH FOR 4 GROUPS :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Block width which means how many groups are affected
 WIDTH_ONE_GROUP = 76
 WIDTH_FOUR_GROUPS = 340
@@ -46,6 +48,15 @@ GROUP_A1_sunday = 1144
 GROUP_A2_sunday = GROUP_A1_sunday + COLUMN_GROUP_WIDTH  # 1223
 GROUP_B3_sunday = GROUP_A2_sunday + COLUMN_GROUP_WIDTH
 GROUP_B4_sunday = GROUP_B3_sunday + COLUMN_GROUP_WIDTH
+
+# ~: WIDTH FOR 3 GROUPS :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Block width which means how many groups are affected
+
+
+# TODO : add new width value for 3 groups instead of 4
+
+
+
 
 
 class ScheduleScraper(object):
@@ -401,7 +412,7 @@ class ScheduleScraper(object):
 
 
 def main():
-    # DEBUG
+    # DEBUG ONLY
     scrapper = ScheduleScraper()
     s = scrapper.load_numbered_weeks()
     print(s)
