@@ -10,7 +10,7 @@ requirements:
 * Django 1.8.6
 
 OPIS / DESCRIPTION
---
+------------------
 
 [POL]
 
@@ -20,6 +20,10 @@ Jest to program czysto ćwiczeniowy. Chciałem spróbować skrobania stron i aku
 zajęć. Nie ukrywam, że dla innych stron było by to znacznie prostsze ze względu na mniej skomplikowaną 
 strukurę HTML. Na szczęście BeautifulSoup działa cuda. :)
 
+
+29-03-2018
+Zmiany w systemie grup zostały uwzględnione w programie. Poprawki wprowadzone. Teraz plan dla trzech grup powinien 
+wyświetlać się poprawnie.
 
 23-02-2018
 Zmiany w systemie grup na uczelni powodują błędne działanie programu. Zmiany w toku.
@@ -45,14 +49,17 @@ Aplikacja w wersji stabilnej wdrożona na http://planus.pythonanywhere.com/
 
 
 
-
-[ENG]
+[ENG] 
 
 The script is designed to scrape the schedule for a given week from the University of Silesia web page for my year.
 It is a purely exercise program. I wanted to try to scrape pages and I just chose the class schedule. 
 I do not hide that for other websites it would be much simpler due to the less complicated HTML structure. 
 Fortunately, BeautifulSoup works wonders. :)
 
+
+29-03-2018
+Changes in the group system have been included in the program. Amendments introduced. Now a plan for three groups should
+display correctly.
 
 06-01-2018
 Extended application with GUI and the ability to save your preferred group (in cookies). An information page has also been added.

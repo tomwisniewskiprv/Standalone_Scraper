@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 # CONSTANTS
 
 # Website's URL, it will return schedule table for current week
-URL = "http://plan.ii.us.edu.pl/plan.php?type=2&id=23805&winW=1584&winH=354&loadBG=000000"
+URL = "http://plan.ii.us.edu.pl/plan.php?type=2&id=23805&winW=1584&winH=354&loadBG=000000&"
 WEEK_PARAM = "&w="
 URL += WEEK_PARAM
 
@@ -25,38 +25,52 @@ HEIGHT_TIME_2_5hb = 123  # 2,5h
 
 # ~: WIDTH FOR 4 GROUPS :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Block width which means how many groups are affected
-WIDTH_ONE_GROUP = 76
-WIDTH_FOUR_GROUPS = 340
+WIDTH_ONE_GROUP = 106
+WIDTH_FOUR_GROUPS = 342
 
 # Which group
-COLUMN_GROUP_WIDTH = 88
+COLUMN_GROUP_WIDTH = 118
 
 # Friday
-GROUP_A1_friday = 440
-GROUP_A2_friday = GROUP_A1_friday + COLUMN_GROUP_WIDTH  # 528
+GROUP_A1_friday = 442
+GROUP_A2_friday = GROUP_A1_friday + COLUMN_GROUP_WIDTH
 GROUP_B3_friday = GROUP_A2_friday + COLUMN_GROUP_WIDTH
 GROUP_B4_friday = GROUP_B3_friday + COLUMN_GROUP_WIDTH
 
 # Saturday
-GROUP_A1_saturday = 792
-GROUP_A2_saturday = GROUP_A1_saturday + COLUMN_GROUP_WIDTH  # 880
+GROUP_A1_saturday = 796
+GROUP_A2_saturday = GROUP_A1_saturday + COLUMN_GROUP_WIDTH
 GROUP_B3_saturday = GROUP_A2_saturday + COLUMN_GROUP_WIDTH
 GROUP_B4_saturday = GROUP_B3_saturday + COLUMN_GROUP_WIDTH
 
 # Sunday
-GROUP_A1_sunday = 1144
-GROUP_A2_sunday = GROUP_A1_sunday + COLUMN_GROUP_WIDTH  # 1223
+GROUP_A1_sunday = 1150
+GROUP_A2_sunday = GROUP_A1_sunday + COLUMN_GROUP_WIDTH
 GROUP_B3_sunday = GROUP_A2_sunday + COLUMN_GROUP_WIDTH
 GROUP_B4_sunday = GROUP_B3_sunday + COLUMN_GROUP_WIDTH
 
 # ~: WIDTH FOR 3 GROUPS :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Block width which means how many groups are affected
 
+# ~: :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
+<div id="course_3" name="course" class="coursediv" mtp="2" resizable="0" zold="8" cwb="106" chb="90" cw="106" ch="90" 
 
-# TODO : add new width value for 3 groups instead of 4
+    // THIS IS THE MOST IMPORTANT PART right here :
+    style="width: 106px; height: 90px; top: 765px; left: 442px; border: 1px solid rgb(102, 102, 102);
+    
+    width - column width
+    left  - coord for left border on the grid
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    background-color: rgb(124, 176, 246); display: block; z-index: 8;" onclick="divswap('course_3')">
+    
+    <img id="arrow_course_3" src="images/resize.png" style="position: absolute; top: 91px; left: 107px;
+    display: none; border: solid 1px #666666;">Aisd, lab<br><a href="plan.php?type=10&amp;id=6205">MB</a>
+</div>
 
-
+"""
+# ~: :~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 class ScheduleScraper(object):
@@ -93,6 +107,16 @@ class ScheduleScraper(object):
                           'KSt': 'Kazimierz Stróż',
                           'CM': 'Miłosław Chodacki',
                           'DR': 'Rafał Doroz',
+
+                          # IV semester
+                          'BU': 'Urszula Boryczka',
+                          'KC':'Kornel Chromiński',
+                          'GK':'Krzysztof Wróbel',
+                          'PwjC':'Roman Simiński',
+                          'TX':'Tomasz Xięski',
+                          'WB':'Wojciech Bielas',
+                          'RSi' : 'Roman Simiński',
+
                           }
 
         self._lecturers = {}  # set()
@@ -271,8 +295,8 @@ class ScheduleScraper(object):
                         ["A2", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
                     self._friday_schedule.append(
                         ["B3", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
-                    self._friday_schedule.append(
-                        ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
+                    # self._friday_schedule.append(
+                    #     ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
 
             if coordinates['left'] == GROUP_A2_friday:
                 self._friday_schedule.append(
@@ -280,9 +304,9 @@ class ScheduleScraper(object):
             if coordinates['left'] == GROUP_B3_friday:
                 self._friday_schedule.append(
                     ["B3", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
-            if coordinates['left'] == GROUP_B4_friday:
-                self._friday_schedule.append(
-                    ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
+            # if coordinates['left'] == GROUP_B4_friday:
+            #     self._friday_schedule.append(
+            #         ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
 
             # SATURDAY ------------------------------
             if coordinates['left'] == GROUP_A1_saturday:
@@ -296,8 +320,8 @@ class ScheduleScraper(object):
                         ["A2", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
                     self._saturday_schedule.append(
                         ["B3", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
-                    self._saturday_schedule.append(
-                        ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
+                    # self._saturday_schedule.append(
+                    #     ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
 
             if coordinates['left'] == GROUP_A2_saturday:
                 self._saturday_schedule.append(
@@ -305,9 +329,9 @@ class ScheduleScraper(object):
             if coordinates['left'] == GROUP_B3_saturday:
                 self._saturday_schedule.append(
                     ["B3", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
-            if coordinates['left'] == GROUP_B4_saturday:
-                self._saturday_schedule.append(
-                    ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
+            # if coordinates['left'] == GROUP_B4_saturday:
+            #     self._saturday_schedule.append(
+            #         ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
 
             # SUNDAY ----------------------------------
             if coordinates['left'] == GROUP_A1_sunday:
@@ -321,8 +345,8 @@ class ScheduleScraper(object):
                         ["A2", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
                     self._sunday_schedule.append(
                         ["B3", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
-                    self._sunday_schedule.append(
-                        ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
+                    # self._sunday_schedule.append(
+                    #     ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
 
             if coordinates['left'] == GROUP_A2_sunday:
                 self._sunday_schedule.append(
@@ -330,9 +354,9 @@ class ScheduleScraper(object):
             if coordinates['left'] == GROUP_B3_sunday:
                 self._sunday_schedule.append(
                     ["B3", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
-            if coordinates['left'] == GROUP_B4_sunday:
-                self._sunday_schedule.append(
-                    ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
+            # if coordinates['left'] == GROUP_B4_sunday:
+            #      self._sunday_schedule.append(
+            #          ["B4", lecture_info[0], lecture_info[1], lecture_info[2], lecture_info[3], coordinates])
 
         # Remove redundancy
         self._friday_schedule = self._remove_redundancy(self._friday_schedule)
@@ -397,9 +421,10 @@ class ScheduleScraper(object):
         group_A1 = self.get_schedule_for_group("A1")
         group_A2 = self.get_schedule_for_group("A2")
         group_B3 = self.get_schedule_for_group("B3")
-        group_B4 = self.get_schedule_for_group("B4")
+        # group_B4 = self.get_schedule_for_group("B4")
 
-        schedule = {"A1": group_A1, "A2": group_A2, "B3": group_B3, "B4": group_B4}
+        #schedule = {"A1": group_A1, "A2": group_A2, "B3": group_B3,}
+        schedule = {"1": group_A1, "2": group_A2, "3": group_B3,}
         return schedule
 
     def get_current_week(self):
